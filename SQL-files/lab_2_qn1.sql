@@ -24,11 +24,11 @@ SELECT type AS 'Type of Room', COUNT(type) FROM Room, Hotel WHERE Room.hotelNo =
 --Qn 1.8
 SELECT guestName, COUNT(Booking.hotelNo) AS 'Number of Bookings' FROM Guest, Booking, Hotel
 WHERE Guest.guestNo = Booking.guestNo AND Booking.hotelNo = Hotel.hotelNo AND hotelName = 'Grosvenor' 
-Group By guestName
+Group By guestName, Guest.guestNo
 HAVING COUNT(Booking.hotelNo) > 1;
 
 --Qn 1.9
-SELECT Booking.roomNo, dateFrom, dateTo, DATEDIFF(day, dateFrom, dateTo) AS 'Number of Days', price, DATEDIFF(day, dateFrom, dateTo)*price AS 'TotalRevenue'
+SELECT Room.roomNo, dateFrom, dateTo, DATEDIFF(day, dateFrom, dateTo) AS 'Number of Days', price, DATEDIFF(day, dateFrom, dateTo)*price AS 'TotalRevenue'
 FROM Room, Booking, Hotel
 WHERE Hotel.hotelNo = Room.hotelNo AND Hotel.hotelNo = Booking.hotelNo AND Room.roomNo = Booking.roomNo
 AND type = 'S' AND (dateFrom >= '2014-10-01' AND dateTo <= '2014-10-31') AND Hotel.hotelName = 'Grosvenor';
