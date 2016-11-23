@@ -1,4 +1,4 @@
--Lab 2
+--Lab 2
 --Qn 1.1
 SELECT hotelNo, hotelName, contactNo FROM Hotel WHERE city = 'London';
 
