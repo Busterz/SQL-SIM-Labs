@@ -41,5 +41,9 @@ Room.hotelNo = Booking.hotelNo AND Room.roomNo = Booking.roomNo AND
 Hotel.hotelNo = Room.hotelNo
 
 --Qn 1.8
-SELECT hotelName, Room.type FROM Hotel, Booking, Room
-WHERE 
+SELECT hotelName, Room.type FROM Hotel h, Booking b, Room r
+WHERE city = 'London' AND h.hotelNo = r.hotelNo AND r.hotelNo = b.hotelNo AND r.roomNo = b.roomNo
+GROUP BY h.hotelNo, hotelName, r.type
+HAVING COUNT(*) >= ALL(SELECT COUNT(*) FROM Booking b1, Room r1
+WHERE h.hotelNo = r1.hotelNo AND r1.hotelNo = b1.hotelNo AND r1.roomNo = b1.roomNo
+GROUP BY r1.hotelNo, r1.type)
